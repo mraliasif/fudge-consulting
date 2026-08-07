@@ -247,6 +247,15 @@
     opacity:0.5;
     margin-bottom:14px;
   }
+  .section-tag::before{
+    content:"";
+    width:8px;height:8px;
+    border-radius:50%;
+    background:var(--gradient);
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:8px;
+  }
   .section-title{
     font-size:clamp(32px,4.4vw,52px);
     font-weight:800;
@@ -1120,9 +1129,12 @@
     el.appendChild(frag);
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){
+        var cx=document.createElement('canvas').getContext('2d');
+        cx.font=getComputedStyle(el).font;
         [].slice.call(el.querySelectorAll('.digit')).forEach(function(w){
           var t=parseInt(w.getAttribute('data-t'),10);
           w.querySelector('.ds').style.transform='translateY(-'+t+'em)';
+          w.style.width=cx.measureText(String(t)).width+'px';
         });
       });
     });
