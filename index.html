@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.classList.add('js');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fudge Consulting — Guiding Futures, Inspiring Success</title>
@@ -596,9 +597,198 @@
   footer .foot-links a{color:var(--black);opacity:0.55;text-decoration:none;font-size:13px;font-weight:600;transition:opacity .2s ease;}
   footer .foot-links a:hover{opacity:1;}
 
+/* ---------- extraordinary motion ---------- */
+
+  .scroll-progress{
+    position:fixed;top:0;left:0;right:0;height:3px;z-index:200;
+    background:var(--gradient);
+    transform:scaleX(0);transform-origin:left;
+    box-shadow:0 0 14px rgba(37,99,235,0.55);
+  }
+
+  html{scroll-padding-top:110px;}
+
+  /* nav */
+  nav .wrap{transition:height .35s cubic-bezier(.22,1,.36,1);}
+  nav{transition:background .4s ease, box-shadow .4s ease;}
+  nav.scrolled{background:rgba(255,255,255,0.92);box-shadow:0 12px 32px -22px rgba(10,10,10,0.3);}
+  nav.scrolled .wrap{height:64px;}
+  .nav-links a{
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .nav-links a:hover{transform:translateY(-1px);}
+  .nav-links a::after{
+    content:"";
+    position:absolute;left:0;bottom:-6px;
+    width:100%;height:2px;border-radius:2px;
+    background:var(--gradient);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .45s cubic-bezier(.22,1,.36,1);
+  }
+  .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+  .nav-links a.active{opacity:1;}
+
+  /* hero load-in */
+  @keyframes rise{from{opacity:0;transform:translateY(34px);}to{opacity:1;transform:none;}}
+  @keyframes riseLine{from{transform:translateY(112%);}to{transform:translateY(0);}}
+  .hero .eyebrow{animation:rise .8s cubic-bezier(.22,1,.36,1) both;}
+  .hero p.lead{animation:rise .9s .38s cubic-bezier(.22,1,.36,1) both;}
+  .hero .hero-actions{animation:rise .9s .52s cubic-bezier(.22,1,.36,1) both;}
+  .hero .hero-stats{animation:rise 1s .68s cubic-bezier(.22,1,.36,1) both;}
+
+  .hero-title .line{
+    display:block;overflow:hidden;
+    padding-bottom:.08em;margin-bottom:-.08em;
+  }
+  .hero-title .line-inner{
+    display:block;
+    transform:translateY(112%);
+    animation:riseLine 1.05s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  .hero-title .line:nth-child(1) .line-inner{animation-delay:.1s;}
+  .hero-title .line:nth-child(2) .line-inner{animation-delay:.24s;}
+
+  /* ambient blobs */
+  @keyframes blobFloat{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(48px,-36px) scale(1.12);}
+  }
+  .hero::before{animation:blobFloat 16s ease-in-out infinite;}
+  .hero::after{animation:blobFloat 22s ease-in-out infinite reverse;}
+  @keyframes blobPulse{
+    0%,100%{transform:translateX(-50%) scale(1);opacity:.32;}
+    50%{transform:translateX(-50%) scale(1.14);opacity:.46;}
+  }
+  .contact-card::before{animation:blobPulse 13s ease-in-out infinite;}
+
+  @keyframes dotPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.4);}}
+  .eyebrow::before{animation:dotPulse 2.4s ease-in-out infinite;}
+
+  /* reveal on scroll */
+  .js .reveal{
+    opacity:0;
+    transform:translateY(38px);
+    transition:opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
+    transition-delay:var(--d,0s);
+  }
+  .js .reveal[data-dir="left"]{transform:translateX(-52px);}
+  .js .reveal[data-dir="right"]{transform:translateX(52px);}
+  .js .reveal[data-dir="zoom"]{transform:scale(.9) translateY(24px);}
+  .js .reveal.visible{opacity:1;transform:none;}
+
+  /* word-by-word split reveal */
+  .wm{
+    display:inline-block;overflow:hidden;vertical-align:top;
+    padding-bottom:.1em;margin-bottom:-.1em;
+  }
+  .wi{
+    display:inline-block;
+    transform:translateY(130%);
+    transition:transform .85s cubic-bezier(.22,1,.36,1);
+    transition-delay:var(--d,0s);
+  }
+  .split-up.in-view .wi{transform:translateY(0);}
+
+  /* service cards */
+  .service-card{
+    overflow:hidden;
+    --mx:50%;--my:50%;
+    transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s cubic-bezier(.22,1,.36,1), border-color .5s ease;
+  }
+  .service-card::after{
+    content:"";
+    position:absolute;inset:0;
+    background:radial-gradient(340px circle at var(--mx) var(--my), rgba(37,99,235,0.09), transparent 62%);
+    opacity:0;
+    transition:opacity .45s ease;
+    pointer-events:none;
+  }
+  .service-card:hover::after{opacity:1;}
+  .service-card.reveal.visible:hover{
+    transform:translateY(-8px) scale(1.015);
+    box-shadow:0 28px 52px -26px rgba(10,10,10,0.22);
+    border-color:transparent;
+  }
+  .service-icon{transition:transform .55s cubic-bezier(.34,1.56,.64,1);}
+  .service-card:hover .service-icon{transform:scale(1.1) rotate(-6deg);}
+  .service-num{transition:letter-spacing .4s ease;}
+  .service-card:hover .service-num{letter-spacing:.14em;}
+  .service-card:nth-child(1){--d:0s;}
+  .service-card:nth-child(2){--d:.12s;}
+  .service-card:nth-child(3){--d:.24s;}
+
+  /* process */
+  .process-item{
+    padding-left:8px;border-radius:8px;
+    transition:background .35s ease, padding-left .4s cubic-bezier(.22,1,.36,1);
+  }
+  .process-item:hover{background:rgba(37,99,235,0.04);padding-left:20px;}
+  .process-item:nth-child(1){--d:0s;}
+  .process-item:nth-child(2){--d:.1s;}
+  .process-item:nth-child(3){--d:.2s;}
+  .process-item:nth-child(4){--d:.3s;}
+
+  /* mission card tilt + glare */
+  .mission-card{
+    transform-style:preserve-3d;
+    --mx:50%;--my:50%;
+    transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
+  }
+  .mission-card::after{
+    content:"";
+    position:absolute;inset:0;
+    background:radial-gradient(420px circle at var(--mx) var(--my), rgba(255,255,255,0.14), transparent 58%);
+    opacity:0;
+    transition:opacity .45s ease;
+    pointer-events:none;
+  }
+  .mission-card:hover::after{opacity:1;}
+  .mission-card:hover{box-shadow:0 40px 80px -40px rgba(10,10,10,0.5);}
+
+  /* buttons */
+  .nav-cta,.btn-primary,.btn-secondary,.contact-btn{
+    transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s cubic-bezier(.22,1,.36,1), background .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .btn-primary svg,.contact-btn svg{transition:transform .4s cubic-bezier(.22,1,.36,1);}
+  .btn-primary:hover svg{transform:translateX(6px);}
+  .contact-btn:hover svg{transform:translateX(5px);}
+
+  /* stat digit roll */
+  .stat-num{line-height:1;}
+  .stat-num .digit{display:inline-block;overflow:hidden;height:1em;vertical-align:bottom;}
+  .stat-num .ds{display:flex;flex-direction:column;transition:transform 1.5s cubic-bezier(.22,1,.36,1);}
+  .stat-num .ds i{display:block;height:1em;line-height:1;font-style:normal;}
+  .stat-num .dchar{display:inline-block;height:1em;line-height:1;vertical-align:bottom;}
+
+  /* marquee */
+  .strip{position:relative;}
+  .strip::before,.strip::after{
+    content:"";
+    position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;
+  }
+  .strip::before{left:0;background:linear-gradient(to right, var(--white), transparent);}
+  .strip::after{right:0;background:linear-gradient(to left, var(--white), transparent);}
+  .strip:hover .strip-track{animation-play-state:paused;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.01ms !important;
+      transition-delay:0s !important;
+    }
+    .js .reveal,.js .reveal[data-dir],.wi,.hero-title .line-inner{
+      opacity:1 !important;transform:none !important;
+    }
+    .scroll-progress{display:none;}
+  }
+
 </style>
 </head>
 <body>
+
+<div class="scroll-progress" aria-hidden="true"></div>
 
 <nav>
   <div class="wrap">
@@ -619,7 +809,10 @@
 <header class="hero">
   <div class="wrap">
     <div class="eyebrow">IT Services &amp; IT Consulting · Lahore, Pakistan</div>
-    <h1>Guiding futures,<br><span class="gradient-text">inspiring success.</span></h1>
+    <h1 class="hero-title">
+      <span class="line"><span class="line-inner">Guiding futures,</span></span>
+      <span class="line"><span class="line-inner gradient-text">inspiring success.</span></span>
+    </h1>
     <p class="lead">Empowering students and professionals with personalized guidance and support. We specialize in academic counseling, study strategies, and career advice — helping you unlock your potential and make informed decisions for a successful future.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">
@@ -648,18 +841,20 @@
 
 <section class="about" id="about">
   <div class="wrap">
-    <div class="section-tag">Who we are</div>
-    <h2 class="section-title">Personalized guidance, built around your future.</h2>
+    <div class="section-tag reveal">Who we are</div>
+    <h2 class="section-title split-up">Personalized guidance, built around your future.</h2>
 
     <div class="about-grid">
-      <div class="about-copy">
-        <p class="highlight">Fudge Consulting exists to help individuals unlock their potential and make informed decisions.</p>
-        <p>We work closely with students and professionals to translate ambition into a clear plan — combining academic counseling, proven study strategies, and honest career advice tailored to where you are and where you want to go.</p>
+      <div class="about-copy reveal" data-dir="left">
+        <p class="highlight split-up">Fudge Consulting exists to help individuals unlock their potential and make informed decisions.</p>
+        <p class="reveal" style="--d:.15s">We work closely with students and professionals to translate ambition into a clear plan — combining academic counseling, proven study strategies, and honest career advice tailored to where you are and where you want to go.</p>
       </div>
-      <div class="mission-card">
-        <h3>Our Mission</h3>
-        <p>Empowering students and professionals with personalized guidance and support to unlock their potential.</p>
-        <span class="spark">Guiding Futures, Inspiring Success</span>
+      <div class="mission-wrap reveal" data-dir="right" style="--d:.14s">
+        <div class="mission-card">
+          <h3>Our Mission</h3>
+          <p class="split-up">Empowering students and professionals with personalized guidance and support to unlock their potential.</p>
+          <span class="spark">Guiding Futures, Inspiring Success</span>
+        </div>
       </div>
     </div>
   </div>
@@ -669,14 +864,14 @@
   <div class="wrap">
     <div class="services-head">
       <div>
-        <div class="section-tag">What we do</div>
-        <h2 class="section-title">Three ways we help you move forward.</h2>
+        <div class="section-tag reveal">What we do</div>
+        <h2 class="section-title split-up">Three ways we help you move forward.</h2>
       </div>
-      <p>From choosing the right academic path to building the skills and confidence for the career ahead — we guide every step.</p>
+      <p class="reveal" style="--d:.12s">From choosing the right academic path to building the skills and confidence for the career ahead — we guide every step.</p>
     </div>
 
     <div class="service-grid">
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-num">01</span>
         <div class="service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
@@ -685,7 +880,7 @@
         <p>One-on-one guidance to help you choose the right path, subjects, and institutions — grounded in your strengths and goals.</p>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-num">02</span>
         <div class="service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
@@ -694,7 +889,7 @@
         <p>Practical, proven techniques for retention, time management, and exam performance — built around how you actually learn.</p>
       </div>
 
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="service-num">03</span>
         <div class="service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
@@ -715,32 +910,32 @@
 
 <section class="process" id="process">
   <div class="wrap">
-    <div class="section-tag">How it works</div>
-    <h2 class="section-title">A simple, guided process.</h2>
+    <div class="section-tag reveal">How it works</div>
+    <h2 class="section-title split-up">A simple, guided process.</h2>
 
     <div class="process-list">
-      <div class="process-item">
+      <div class="process-item reveal">
         <div class="pnum">01</div>
         <div>
           <h4>Reach out</h4>
           <p>Message us or send an email — tell us a little about where you are and what you're deciding on.</p>
         </div>
       </div>
-      <div class="process-item">
+      <div class="process-item reveal">
         <div class="pnum">02</div>
         <div>
           <h4>Get matched with a counselor</h4>
           <p>We pair you with the right guidance based on your academic stage and career interests.</p>
         </div>
       </div>
-      <div class="process-item">
+      <div class="process-item reveal">
         <div class="pnum">03</div>
         <div>
           <h4>Build your plan</h4>
           <p>Together we map out a personalized path — academic, strategic, and career-focused.</p>
         </div>
       </div>
-      <div class="process-item">
+      <div class="process-item reveal">
         <div class="pnum">04</div>
         <div>
           <h4>Move forward with support</h4>
@@ -753,11 +948,11 @@
 
 <section class="contact" id="contact">
   <div class="wrap">
-    <div class="contact-card">
-      <h2>Ready to unlock your potential?</h2>
-      <p>Reach out to Fudge Consulting today — we're here to guide your next decision.</p>
+    <div class="contact-card reveal" data-dir="zoom">
+      <h2 class="split-up">Ready to unlock your potential?</h2>
+      <p class="reveal" style="--d:.15s">Reach out to Fudge Consulting today — we're here to guide your next decision.</p>
 
-      <div class="contact-actions">
+      <div class="contact-actions reveal" style="--d:.28s">
         <a href="mailto:team@fudgeconsulting.online" class="contact-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4Z"/><path d="m22 6-10 7L2 6"/></svg>
           Email Us
@@ -768,7 +963,7 @@
         </a>
       </div>
 
-      <div class="contact-meta">
+      <div class="contact-meta reveal" style="--d:.38s">
         <div>
           <strong>Email</strong>
           team@fudgeconsulting.online
@@ -787,7 +982,7 @@
 </section>
 
 <footer>
-  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+  <div class="wrap reveal" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
     <div class="logo"><div class="logo-mark">FC</div>Fudge Consulting</div>
     <ul class="foot-links">
       <li><a href="#about">About</a></li>
@@ -798,5 +993,157 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var root=document.documentElement;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- scroll progress + nav state + scrollspy ---- */
+  var nav=document.querySelector('nav');
+  var bar=document.querySelector('.scroll-progress');
+  var links=[].slice.call(document.querySelectorAll('.nav-links a'));
+  var ticking=false;
+
+  function revealBottom(){
+    if(window.pageYOffset+window.innerHeight>=root.scrollHeight-48){
+      [].slice.call(document.querySelectorAll('.reveal:not(.visible)')).forEach(function(el){
+        el.classList.add('visible');
+        if(el.classList.contains('split-up'))el.classList.add('in-view');
+      });
+    }
+  }
+  function update(){
+    ticking=false;
+    var st=window.pageYOffset;
+    var h=root.scrollHeight-window.innerHeight;
+    bar.style.transform='scaleX('+(h>0?st/h:0)+')';
+    nav.classList.toggle('scrolled',st>40);
+    var current=null;
+    [].slice.call(document.querySelectorAll('section[id]')).forEach(function(sec){
+      var r=sec.getBoundingClientRect();
+      if(r.top<=150 && r.bottom>150)current=sec.id;
+    });
+    links.forEach(function(a){
+      a.classList.toggle('active',a.getAttribute('href')==='#'+current);
+    });
+    revealBottom();
+  }
+  window.addEventListener('scroll',function(){
+    revealBottom();
+    if(!ticking){requestAnimationFrame(update);ticking=true;}
+  },{passive:true});
+  window.addEventListener('resize',update);
+  update();
+
+  if(reduce)return;
+
+  /* ---- cursor spotlight on cards ---- */
+  [].slice.call(document.querySelectorAll('.service-card,.mission-card')).forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      card.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+    });
+  });
+
+  /* ---- 3d tilt on mission card ---- */
+  var tilt=document.querySelector('.mission-card');
+  if(tilt){
+    tilt.addEventListener('mousemove',function(e){
+      var r=tilt.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width-0.5;
+      var py=(e.clientY-r.top)/r.height-0.5;
+      tilt.style.transform='perspective(900px) rotateX('+(-py*8).toFixed(2)+'deg) rotateY('+(px*11).toFixed(2)+'deg) translateY(-6px) scale(1.01)';
+    });
+    tilt.addEventListener('mouseleave',function(){tilt.style.transform='';});
+  }
+
+  /* ---- magnetic buttons ---- */
+  [].slice.call(document.querySelectorAll('.nav-cta,.btn-primary,.btn-secondary,.contact-btn')).forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){
+      var r=btn.getBoundingClientRect();
+      var x=e.clientX-(r.left+r.width/2);
+      var y=e.clientY-(r.top+r.height/2);
+      btn.style.transform='translate('+(x*0.28).toFixed(1)+'px,'+(y*0.4).toFixed(1)+'px)';
+    });
+    btn.addEventListener('mouseleave',function(){btn.style.transform='';});
+  });
+
+  /* ---- word-by-word split ---- */
+  function split(el){
+    var walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
+    var nodes=[],i=0;
+    while(walker.nextNode()){
+      if(walker.currentNode.nodeValue.trim())nodes.push(walker.currentNode);
+    }
+    nodes.forEach(function(node){
+      var words=node.nodeValue.split(/(\s+)/);
+      var frag=document.createDocumentFragment();
+      words.forEach(function(w){
+        if(!w)return;
+        if(/^\s+$/.test(w)){frag.appendChild(document.createTextNode(w));return;}
+        var mask=document.createElement('span');mask.className='wm';
+        var inner=document.createElement('span');inner.className='wi';
+        inner.textContent=w;
+        inner.style.setProperty('--d',(i*0.045)+'s');
+        i++;
+        mask.appendChild(inner);frag.appendChild(mask);
+      });
+      node.parentNode.replaceChild(frag,node);
+    });
+  }
+
+  /* ---- stat digit roll ---- */
+  function roll(el){
+    var text=el.textContent;
+    var frag=document.createDocumentFragment();
+    var digits=0,di=0;
+    for(var k=0;k<text.length;k++){
+      var ch=text[k];
+      if(/\d/.test(ch)){
+        digits++;
+        var wrap=document.createElement('span');wrap.className='digit';
+        var strip=document.createElement('span');strip.className='ds';
+        for(var i=0;i<=9;i++){
+          var d=document.createElement('i');d.textContent=i;strip.appendChild(d);
+        }
+        strip.style.transitionDelay=(di*0.05)+'s';di++;
+        wrap.setAttribute('data-t',ch);
+        wrap.appendChild(strip);
+        frag.appendChild(wrap);
+      }else{
+        var s=document.createElement('span');s.className='dchar';s.textContent=ch;frag.appendChild(s);
+      }
+    }
+    if(!digits)return;
+    el.textContent='';
+    el.appendChild(frag);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        [].slice.call(el.querySelectorAll('.digit')).forEach(function(w){
+          var t=parseInt(w.getAttribute('data-t'),10);
+          w.querySelector('.ds').style.transform='translateY(-'+t+'em)';
+        });
+      });
+    });
+  }
+
+  /* ---- intersection observer ---- */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting)return;
+      var t=en.target;
+      t.classList.add('visible');
+      if(t.classList.contains('split-up'))t.classList.add('in-view');
+      if(t.classList.contains('stat-num'))roll(t);
+      io.unobserve(t);
+    });
+  },{threshold:0.05,rootMargin:'0px 0px 10% 0px'});
+
+  [].slice.call(document.querySelectorAll('.reveal')).forEach(function(el){io.observe(el);});
+  [].slice.call(document.querySelectorAll('.split-up')).forEach(function(el){split(el);io.observe(el);});
+  [].slice.call(document.querySelectorAll('.stat-num')).forEach(function(el){io.observe(el);});
+})();
+</script>
 </body>
 </html>
