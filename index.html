@@ -27,12 +27,24 @@
 
   body{
     font-family:'Bricolage Grotesque', sans-serif;
-    background-color:var(--blue);
-    background-image:
-      repeating-linear-gradient(to bottom, rgba(10,10,10,0.07) 0 1px, transparent 1px 48px),
-      repeating-linear-gradient(to right, rgba(10,10,10,0.07) 0 1px, transparent 1px 48px);
+    background:var(--blue);
     color:var(--white);
     overflow-x:hidden;
+  }
+
+  .bg-dots{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    opacity:0.7;
+    background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='480'%20height='480'%20viewBox='0%200%20480%20480'%3E%3Cg%20fill='%23C6FF00'%3E%3Ccircle%20cx='48'%20cy='72'%20r='1.6'%20opacity='.5'/%3E%3Ccircle%20cx='176'%20cy='38'%20r='1.1'%20opacity='.32'/%3E%3Ccircle%20cx='310'%20cy='96'%20r='2'%20opacity='.42'/%3E%3Ccircle%20cx='430'%20cy='52'%20r='1.4'%20opacity='.5'/%3E%3Ccircle%20cx='92'%20cy='218'%20r='1.8'%20opacity='.38'/%3E%3Ccircle%20cx='246'%20cy='186'%20r='1.2'%20opacity='.3'/%3E%3Ccircle%20cx='384'%20cy='252'%20r='1.7'%20opacity='.46'/%3E%3Ccircle%20cx='38'%20cy='366'%20r='1.2'%20opacity='.34'/%3E%3Ccircle%20cx='198'%20cy='404'%20r='2.1'%20opacity='.4'/%3E%3Ccircle%20cx='338'%20cy='380'%20r='1.3'%20opacity='.5'/%3E%3Ccircle%20cx='454'%20cy='432'%20r='1.5'%20opacity='.32'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:480px 480px;
+    animation:dotDrift 120s linear infinite;
+  }
+  @keyframes dotDrift{
+    from{background-position:0 0;}
+    to{background-position:480px 480px;}
   }
 
   /* ---------- utility ---------- */
@@ -797,6 +809,7 @@
 </head>
 <body>
 
+<div class="bg-dots" aria-hidden="true"></div>
 <div class="scroll-progress" aria-hidden="true"></div>
 
 <nav>
